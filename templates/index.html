@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TranscribeFlow</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<body>
+<header class="navbar">
+    <div class="logo">
+        <span class="cloud">☁️</span>
+        <div class="logo-text">
+            <h1>TranscribeFlow</h1>
+            <p>AUDIO TO TEXT MAGIC</p>
+        </div>
+    </div>
+    <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+</header>
+
+<main class="main">
+    <div class="card">
+        <div class="upload-box">
+            <div class="icon">🎵</div>
+
+            <h2>Upload your audio file</h2>
+            <p>Supported formats: MP3, WAV</p>
+
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <div class="success">{{ messages[0] }}</div>
+              {% endif %}
+            {% endwith %}
+
+             {# UPLOAD + LIVE RECORD FLEX #} 
+
+            <div style="display: flex; gap: 40px; justify-content: center; flex-wrap: wrap;">
+
+            <form action="{{ url_for('upload_audio') }}" method="post" enctype="multipart/form-data">
+
+                <label class="file-btn">
+                    📁 Choose File
+                    <input type="file" name="audio_file" accept=".mp3,.wav" hidden required
+                    onchange="document.getElementById('fileName').innerText = this.files[0]?.name || 'No file chosen';">
+                </label>
+
+                <p id="fileName">No file chosen</p>
+
+                <br>
+                <button type="submit" class="upload-btn">Transcribe & Summarize</button>
+            </form>
+
+            {# LIVE RECORD SECTION #}
+                <div>
+                    <label class="file-btn" style="cursor:pointer;" onclick="startRecording()">
+                        🎙 Start Recording
+                    </label>
+
+                    <p id="recordStatus">Not recording</p>
+
+                    <button type="button" class="upload-btn" onclick="stopRecording()">
+                        Stop & Transcribe
+                    </button>
+                </div>
+
+            </div>
+
+           {# TRANSCRIPTION SECTION #}
+
+            {% if transcription %}
+                <div class="result-section">
+
+                    <div class="result-box">
+                        <h3>Transcription</h3>
+                        <textarea readonly class="result-text">{{ transcription }}</textarea>
+                    </div>
+
+                    <div class="result-box">
+                        <h3>Summary</h3>
+                        <textarea readonly class="result-text">{{ summary }}</textarea>
+                    </div>
+
+                    <div class="download-section">
+                        {% if download_combined %}
+                        <a href="{{ url_for('download_file', filename=download_combined) }}">
+                           <button class="upload-btn">Download Transcription & Summary</button>
+                        </a>
+                        {% endif %}
+
+                        {% if download_json %}
+                        <a href="{{ url_for('download_file', filename=download_json) }}">
+                            <button class="upload-btn">Download JSON</button>
+                        </a>
+                        {% endif %}
+                    </div>
+
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

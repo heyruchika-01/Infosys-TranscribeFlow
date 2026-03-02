@@ -1,0 +1,294 @@
+/* =========================
+   GLOBAL STYLES
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: #f4f6f8;
+    min-height: 100vh;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    height: 90px;
+    background: linear-gradient(90deg, #6a7ee8, #8b5fbf);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    color: white;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo h1 {
+    font-size: 26px;
+}
+
+.logo p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+.logout {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    background: rgba(255,255,255,0.2);
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.logout:hover {
+    background: rgba(255,255,255,0.35);
+}
+
+/* =========================
+   MAIN UPLOAD PAGE
+========================= */
+.main {
+    /* height: calc(100vh - 90px);
+    background: #f5f7fb;
+    display: flex;
+    align-items: center;
+    justify-content: center; */
+     display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+    width: 100%;
+}
+
+.card {
+    background: white;
+     width: 95%;
+    max-width: 1500px;   /* Increased width */
+    margin: 0 auto;
+    padding: 50px;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.upload-box {
+    border: 2px dashed #6aa9ff;
+    background: #f2f8ff;
+    border-radius: 14px;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.cloud {
+    font-size: 42px;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
+}
+
+.upload-box h2 {
+    color: #2455d6;
+    margin-bottom: 5px;
+}
+
+.upload-box p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.file-btn {
+    display: inline-block;
+    background: #2fb2f2;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-bottom: 8px;
+}
+
+.file-btn:hover {
+    background: #199de0;
+}
+
+.upload-btn {
+    margin-top: 5px;
+    background: #6a7ee8;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.upload-btn:hover {
+    background: #5568d9;
+}
+
+
+/* =========================
+   TRANSCRIPTION SECTION
+========================= */
+.result-box {
+    margin-top: 30px;
+    text-align: left;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.result-box h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #2455d6;
+    font-weight: 600;
+}
+
+.result-text {
+    width: 100%;
+    min-height: 130px;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    resize: none;
+    background: #1f2a44;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1.6;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.result-box .upload-btn {
+    margin-top: 20px;
+    width: 100%;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   LOGIN PAGE
+========================= */
+.login-box {
+    width: 300px;
+    margin: 120px auto;
+    padding: 20px;
+    background: white;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.login-box input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.login-box button {
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background: #45a049;
+}
+
+/* =========================
+   REGISTER PAGE
+========================= */
+.register-container {
+    background: #ffffff;
+    padding: 40px;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 120px auto;
+}
+
+.register-container h2 {
+    margin-bottom: 25px;
+}
+
+.register-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.register-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.register-container button:hover {
+    background-color: #45a049;
+}
+
+.register-container a {
+    color: purple;
+    text-decoration: none;
+}
+
+.register-container a:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   MESSAGES
+========================= */
+.flash-message {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.success {
+    color: green;
+    font-weight: 600;
+}
+
+.error {
+    color: red;
+}

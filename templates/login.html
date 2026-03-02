@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+    <div class="logo">
+        <span class="cloud">☁️</span>
+        <div class="logo-text">
+            <h1>TranscribeFlow</h1>
+            <p>AUDIO TO TEXT MAGIC</p>
+        </div>
+    </div>
+</header>
+
+<div class="login-box">
+    <h2>Login</h2>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+       <p style="color:red;">{{ messages[0] }}</p>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <input type="email" name="email" placeholder="Enter email" required>
+        <input type="password" name="password" placeholder="Enter password" required>
+        <button type="submit">Login</button>
+
+        <p>New user? <a href="{{ url_for('register') }}">Register here</a></p>
+    </form>
+</div>
+
+</body>
+</html>
