@@ -4,6 +4,7 @@ import os
 import whisper
 from transformers import pipeline
 from werkzeug.utils import secure_filename
+from mysql.connector import Error
 
 app = Flask(__name__)
 app.secret_key = "mysecretkey"
@@ -30,13 +31,16 @@ summarizer = pipeline(
 )
 
 
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="1234",
-    database="flask_basic"
-)
-cursor = db.cursor(buffered=True)
+def get_db_cursor():
+    db = mysql.connector.connect(
+        host="127.0.0.1",
+        user="root",
+        password="1234",
+        database="flask_basic",
+        connection_timeout=30,
+        use_pure=True
+    )
+    return db, db.cursor(buffered=True)
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -47,11 +51,15 @@ def register():
         name = request.form["name"]
         email = request.form["email"]
         password = request.form["password"]
+        
+        db, cursor = get_db_cursor()
 
         cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
         existing_user = cursor.fetchone()
 
         if existing_user:
+            cursor.close()   # ✅ Close before returning
+            db.close() 
             flash("Email already exists!")
             return render_template("register.html")
 
@@ -60,6 +68,9 @@ def register():
             (name, email, password)
         )
         db.commit()
+        cursor.close()   # ✅ Close before returning
+        db.close() 
+        
 
         flash("Registration successful! Please login.")
         return redirect(url_for("login"))
@@ -71,12 +82,16 @@ def login():
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
+        
+        db, cursor = get_db_cursor() 
 
         cursor.execute(
             "SELECT * FROM users WHERE email=%s AND password=%s",
             (email, password)
         )
         user = cursor.fetchone()
+        cursor.close()
+        db.close()
 
         if user:
             session["user_id"] = user[0]
@@ -181,4 +196,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=False, use_reloader=False)
